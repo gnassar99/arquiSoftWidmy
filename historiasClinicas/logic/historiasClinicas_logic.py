@@ -1,19 +1,19 @@
-from ..models import historiasClinica
+from ..models import HistoriaClinica as historiaClinica
 
 def get_historiasClinicas():
-    historiasClinicas = historiasClinica.objects.all()
+    historiasClinicas = historiaClinica.objects.all()
     return historiasClinicas
 
-def get_historiasClinica(var_pk):
-    historiasClinica = historiasClinica.objects.get(pk=var_pk)
-    return historiasClinica
+def get_historiaClinica(var_pk):
+    historiaClinica = historiaClinica.objects.get(pk=var_pk)
+    return historiaClinica
 
-def update_historiasClinica(var_pk, new_var):
-    historiasClinica = get_historiasClinica(var_pk)
-    historiasClinica.name = new_var["name"]
-    historiasClinica.save()
-    return historiasClinica
+def update_historiaClinica(var_pk, new_var):
+    historiaClinica = get_historiaClinica(var_pk)
+    historiaClinica.name = new_var["name"]
+    historiaClinica.save()
+    return historiaClinica
 
-def create_historiasClinica(var):
-    historiasClinica = historiasClinica(name=var["name"])
-    historiasClinica.save()
+def create_historiaClinica(var):
+    historiaClinica = historiaClinica(name=var["name"])
+    historiaClinica.save()
