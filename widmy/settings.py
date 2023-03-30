@@ -76,16 +76,28 @@ WSGI_APPLICATION = 'widmy.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 #PostgresSQL database
+# DATABASES = {
+#      "default": {
+#         "ENGINE": "django.db.backends.postgresql_psycopg2",
+#         "NAME": "widmy-db",
+#         "USER": "widmy_user",
+#         "PASSWORD": "widmy1",
+#         "HOST": "10.128.0.2",
+#         "PORT": "5432",
+#     }
+# }
+
 DATABASES = {
      "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "widmy-db",
+        "NAME": "widmydb",
         "USER": "widmy_user",
         "PASSWORD": "widmy1",
-        "HOST": "10.128.0.2",
+        "HOST": "localhost",
         "PORT": "5432",
     }
 }
+
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
