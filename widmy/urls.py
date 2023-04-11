@@ -17,7 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 from .import views
 
-urlpatterns = [      
+urlpatterns = [
+    path('', views.home), # root URL pattern
     path('admin/', admin.site.urls),
     path('home/', views.home),
     path('pacientes/', include('pacientes.urls')),

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'historiasClinicas',
     'pacientes',
+    'widmy',
 ]
 
 MIDDLEWARE = [
@@ -79,10 +80,10 @@ WSGI_APPLICATION = 'widmy.wsgi.application'
 # DATABASES = {
 #      "default": {
 #         "ENGINE": "django.db.backends.postgresql_psycopg2",
-#         "NAME": "widmy-db",
+#         "NAME": "widmydb",
 #         "USER": "widmy_user",
 #         "PASSWORD": "widmy1",
-#         "HOST": "10.128.0.2",
+#         "HOST": "localhost",
 #         "PORT": "5432",
 #     }
 # }
