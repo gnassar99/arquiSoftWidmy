@@ -10,10 +10,21 @@ def get_historiaClinica(var_pk):
 
 def update_historiaClinica(var_pk, new_var):
     historiaClinica = get_historiaClinica(var_pk)
-    historiaClinica.name = new_var["name"]
+    if "enfermedades" in new_var:
+        historiaClinica.enfermedades = new_var["enfermedades"]
+    if "tratamientos" in new_var:
+        historiaClinica.tratamientos = new_var["tratamientos"]
     historiaClinica.save()
     return historiaClinica
 
+
 def create_historiaClinica(var):
-    historiaClinica = historiaClinica(name=var["name"])
+    paciente = Paciente.objects.get(pk=var["paciente_id"])
+    historiaClinica = HistoriaClinica(paciente=paciente)
+    if "enfermedades" in var:
+        historiaClinica.enfermedades = var["enfermedades"]
+    if "tratamientos" in var:
+        historiaClinica.tratamientos = var["tratamientos"]
     historiaClinica.save()
+    return historiaClinica
+
