@@ -39,7 +39,7 @@ def historiasClinica_view(request, pk):
         historiasClinica_dto = hc.get_historiaClinica(pk)
         historiasClinica = serializers.serialize('json', [historiasClinica_dto,],fields=('enfermedades', 'tratamientos'))
         historiasClinica = json.dumps(json.loads(serializers.serialize('json', [historiasClinica_dto,])), indent=4)
-        return render(request, 'Historia/historias.html', historiasClinica)
+        return render(request, 'historia/historias.html', historiasClinica)
 
     if request.method == 'PUT':
         historiasClinica_dto = hc.update_historiaClinica(pk, json.loads(request.body))
@@ -51,7 +51,7 @@ def historia_list(request):
     context = {
         'historia_list': historias
     }
-    return render(request, 'Historia/historias.html', context)
+    return render(request, 'historia/historias.html', context)
 
 def historia_create(request):
     if request.method == 'POST':
@@ -69,5 +69,5 @@ def historia_create(request):
         'form': form,
     }
 
-    return render(request, 'Historia/historiaCreate.html', context)
+    return render(request, 'historia/historiaCreate.html', context)
 

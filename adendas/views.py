@@ -10,7 +10,7 @@ def adenda_list(request):
     context = {
         'adenda_list': adendas
     }
-    return render(request, 'Adenda/adendas.html', context)
+    return render(request, 'adenda/adendas.html', context)
 
 def adenda_create(request):
     if request.method == 'POST':
@@ -28,6 +28,6 @@ def adenda_create(request):
         'form': form,
     }
 
-    return render(request, 'Adenda/adendaCreate.html', context)
+    return render(request, 'adenda/adendaCreate.html', context)
 
 # Create your views here.
