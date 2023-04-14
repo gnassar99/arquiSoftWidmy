@@ -9,14 +9,14 @@ def get_historiaClinica(var_pk):
     historiaClinica = historiaClinica.objects.get(pk=var_pk)
     return historiaClinica
 
-def update_historiaClinica(var_pk, new_var):
-    historiaClinica = get_historiaClinica(var_pk)
-    if "enfermedades" in new_var:
-        historiaClinica.enfermedades = new_var["enfermedades"]
-    if "tratamientos" in new_var:
-        historiaClinica.tratamientos = new_var["tratamientos"]
+def update_historiaClinica(pk, form):
+    historiaClinica = get_historiaClinica(pk)
+    if "enfermedades" in form:
+        historiaClinica.enfermedades = form["enfermedades"]
+    if "tratamientos" in form:
+        historiaClinica.tratamientos = form["tratamientos"]
     historiaClinica.save()
-    return historiaClinica
+    return ()
 
 
 """def create_historiaClinica(var):

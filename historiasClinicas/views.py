@@ -31,7 +31,7 @@ def historiasClinicas_view(request):
         historiasClinica_dto = hc.create_historiaClinica(json.loads(request.body))
         historiasClinica = serializers.serialize('json', [historiasClinica_dto,],fields=('enfermedades', 'tratamientos'))
         historiasClinica = json.dumps(json.loads(serializers.serialize('json', [historiasClinica_dto,])), indent=4)
-        return render(request, 'Historia/historiasCreate.html', historiasClinica)
+        return render(request, 'Historia/historiasCreate.html', historiasClinica)"""
 
 @csrf_exempt
 def historiasClinica_view(request, pk):
@@ -45,7 +45,7 @@ def historiasClinica_view(request, pk):
         historiasClinica_dto = hc.update_historiaClinica(pk, json.loads(request.body))
         historiasClinica = serializers.serialize('json', [historiasClinica_dto,],fields=('enfermedades', 'tratamientos'))
         historiasClinica = json.dumps(json.loads(serializers.serialize('json', [historiasClinica_dto,])), indent=4)
-        return HttpResponse(historiasClinica, 'application/json')"""
+        return HttpResponse(historiasClinica, 'application/json')
 def historia_list(request):
     historias = hc.get_historiasClinicas()
     context = {
@@ -70,3 +70,4 @@ def historia_create(request):
     }
 
     return render(request, 'Historia/historiaCreate.html', context)
+
