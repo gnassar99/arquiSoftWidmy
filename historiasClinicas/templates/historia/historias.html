@@ -25,7 +25,10 @@
                     <table class="table table-hover">
                         <thead>
                         <tr style="color:#0E2EB0">
-                            <th>HistoriaClinica</th>
+                            <th font color="red">Paciente</th>
+                            <th>Historia Clinica</th>
+                            <th>Enfermedades</th>
+                            <th>Tratamientos</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -33,6 +36,9 @@
                         {% for historiaClinica in historiaClinica_list %}
                         <tr>
                             <td>{{ historiaClinica.paciente.apellido }}</td>
+                            <td>{{ historiaClinica.id }}</td>
+                            <td>{{ historiaClinica.enfermedades}}</td>
+                            <td>{{ historiaClinica.tratamientos }}</td>
                         </tr>
                         {% endfor %}
 
