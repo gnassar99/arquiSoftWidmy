@@ -82,10 +82,10 @@ WSGI_APPLICATION = 'widmy.wsgi.application'
 #PostgresSQL database
 DATABASES = {
      "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "widmydb",
-        "USER": "widmy_user",
-        "PASSWORD": "widmy1",
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        "NAME": "widmy",
+        "USER": "jalfonsor",
+        "PASSWORD": "Mundo753",
         "HOST": "localhost",
         "PORT": "5432",
     }

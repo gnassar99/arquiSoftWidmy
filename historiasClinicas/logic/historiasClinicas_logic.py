@@ -1,4 +1,5 @@
 from ..models import HistoriaClinica as historiaClinica
+from pacientes.models import Paciente
 
 def get_historiasClinicas():
     historiasClinicas = historiaClinica.objects.all()
@@ -20,7 +21,7 @@ def update_historiaClinica(var_pk, new_var):
 
 def create_historiaClinica(var):
     paciente = Paciente.objects.get(pk=var["paciente_id"])
-    historiaClinica = HistoriaClinica(paciente=paciente)
+    historiaClinica = historiaClinica(paciente=paciente)
     if "enfermedades" in var:
         historiaClinica.enfermedades = var["enfermedades"]
     if "tratamientos" in var:
