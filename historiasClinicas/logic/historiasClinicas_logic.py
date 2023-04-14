@@ -19,7 +19,7 @@ def update_historiaClinica(var_pk, new_var):
     return historiaClinica
 
 
-def create_historiaClinica(var):
+"""def create_historiaClinica(var):
     paciente = Paciente.objects.get(pk=var["paciente_id"])
     historiaClinica = historiaClinica(paciente=paciente)
     if "enfermedades" in var:
@@ -27,10 +27,10 @@ def create_historiaClinica(var):
     if "tratamientos" in var:
         historiaClinica.tratamientos = var["tratamientos"]
     historiaClinica.save()
-    return historiaClinica
-#def create_historiaClinica(form):
- #   historiaClinica = form.save()
-  #  historiaClinica.save()
-   # return ()
+    return historiaClinica"""
+def create_historiaClinica(form):
+    historiaClinica = form.save()
+    historiaClinica.save()
+    return ()
 
 

@@ -60,7 +60,7 @@ ROOT_URLCONF = 'widmy.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'monitoring', 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'widmy', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'widmy.wsgi.application'
 DATABASES = {
      "default": {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        "NAME": "widmy",
+        "NAME": "widmy2",
         "USER": "jalfonsor",
         "PASSWORD": "Mundo753",
         "HOST": "localhost",

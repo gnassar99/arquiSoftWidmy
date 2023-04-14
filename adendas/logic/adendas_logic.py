@@ -1,4 +1,4 @@
-from ..models import Measurement
+from ..models import Adenda
 
 def get_adendas():
     queryset = Adenda.objects.all().order_by('-dateTime')[:10]

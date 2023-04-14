@@ -7,11 +7,11 @@ class AdendaForm(forms.ModelForm):
         fields = [
             'historia',
             'descripcion',
-            'dateTime',
+            #'dateTime',
         ]
 
         labels = {
             'historia' : 'HistoriaClinica',
             'descripcion' : 'Descripcion',
-            'dateTime' : 'Date Time',
+            #'dateTime' : 'Date Time',
         }

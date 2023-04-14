@@ -21,7 +21,8 @@ urlpatterns = [
     path('', views.index), # root URL pattern
     path('admin/', admin.site.urls),
     path('home/', views.index),
-    path('pacientes/', include('pacientes.urls')),
-    path('historiasClinicas/', include('historiasClinicas.urls')),
+    path('', include('pacientes.urls')),
+    path('', include('historiasClinicas.urls')),
+    path('', include('adendas.urls')),
     path('health-check/', views.healthCheck),
 ]

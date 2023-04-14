@@ -5,5 +5,5 @@ from . import models
 class AdendaSerializer(serializers.ModelSerializer):
 
     class Meta:
-        fields = ('id', 'historia', 'descripcion', 'time',)
+        fields = ('id', 'historia', 'descripcion', 'dateTime',)
         model = models.Adenda
