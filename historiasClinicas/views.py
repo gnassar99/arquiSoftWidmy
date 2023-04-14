@@ -12,7 +12,7 @@ def historiasClinicas_view(request):
     if request.method == 'GET':
         id = request.GET.get("id", None)
         if id:
-            historiasClinica_dto = hc.get_historiasClinica(id)
+            historiasClinica_dto = hc.get_historiaClinica(id)
             historiasClinica = serializers.serialize('json', [historiasClinica_dto,],fields=('enfermedades', 'tratamientos'))
             historiasClinica = json.dumps(json.loads(serializers.serialize('json', historiasClinica_dto)), indent=4)
             return HttpResponse(historiasClinica, 'application/json')
@@ -23,7 +23,7 @@ def historiasClinicas_view(request):
             return HttpResponse(historiasClinicas, 'application/json')
 
     if request.method == 'POST':
-        historiasClinica_dto = hc.create_historiasClinica(json.loads(request.body))
+        historiasClinica_dto = hc.create_historiaClinica(json.loads(request.body))
         historiasClinica = serializers.serialize('json', [historiasClinica_dto,],fields=('enfermedades', 'tratamientos'))
         historiasClinica = json.dumps(json.loads(serializers.serialize('json', [historiasClinica_dto,])), indent=4)
         return HttpResponse(historiasClinica, 'application/json')

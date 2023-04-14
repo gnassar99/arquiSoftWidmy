@@ -27,4 +27,9 @@ def create_historiaClinica(var):
         historiaClinica.tratamientos = var["tratamientos"]
     historiaClinica.save()
     return historiaClinica
+#def create_historiaClinica(form):
+ #   historiaClinica = form.save()
+  #  historiaClinica.save()
+   # return ()
+
 
