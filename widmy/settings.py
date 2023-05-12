@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'historiasClinicas',
     'pacientes',
     'adendas',
+    'social_django',
     #'widmy',
 ]
 
@@ -106,8 +107,8 @@ DATABASES = {
          "ENGINE": "django.db.backends.postgresql_psycopg2",
          "NAME": "widmy_db",
          "USER": "widmy_user",
-         "PASSWORD": "widmy1",
-         "HOST": "10.128.0.2",
+         "PASSWORD": "widmyu2",
+         "HOST": "10.102.64.3",
          "PORT": "5432",
      }
  }
@@ -160,3 +161,25 @@ STATICFILES_DIRS = (
 )
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_URL = "/login/auth0"
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "https://widmy-g3.us.auth0.com/v2/logout?returnTo=http%3A%2F%2F35.209.252.142:8000"
+
+
+
+SOCIAL_AUTH_TRAILING_SLASH = False # Remove end slash from routes 
+SOCIAL_AUTH_AUTH0_DOMAIN = 'widmy-g3.us.auth0.com' 
+SOCIAL_AUTH_AUTH0_KEY = 'GjfQ9O2W7Ge4iBzGxvROMphw3g7GQkJ4' 
+SOCIAL_AUTH_AUTH0_SECRET = 'T-8LUrt888c0KFh7vJgtoFu3xmb94GsnkREbETxIDASLt4oejIR9Dqnn3Jdm991h' 
+SOCIAL_AUTH_AUTH0_SCOPE = [ 
+    'openid', 
+    'profile',
+    'email',
+    'role', 
+    ] 
+
+AUTHENTICATION_BACKENDS = { 
+    'monitoring.auth0backend.Auth0', 
+    'django.contrib.auth.backends.ModelBackend', 
+    }
