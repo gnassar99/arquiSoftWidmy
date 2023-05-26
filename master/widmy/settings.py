@@ -105,10 +105,10 @@ WSGI_APPLICATION = 'widmy.wsgi.application'
 DATABASES = {
       "default": {
          "ENGINE": "django.db.backends.postgresql_psycopg2",
-         "NAME": "widmy_db",
-         "USER": "widmy_user",
-         "PASSWORD": "widmyu2",
-         "HOST": "10.102.64.3",
+         "NAME": "master-db",
+         "USER": "master-user",
+         "PASSWORD": "widmy2503",
+         "HOST": "10.102.64.3", #El de la SQL Postgres en GCP
          "PORT": "5432",
      }
  }
@@ -183,3 +183,13 @@ AUTHENTICATION_BACKENDS = {
     'widmy.auth0backend.Auth0', 
     'django.contrib.auth.backends.ModelBackend', 
     }
+
+
+# CQRS settings
+CQRS = {
+    'transport': 'dj_cqrs.transport.RabbitMQTransport',
+    'host': '10.128.0.8',
+    'port': 5672,
+    'user': 'widmy-app',
+    'password': 'widmy2503',
+}

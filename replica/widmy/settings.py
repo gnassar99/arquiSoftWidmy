@@ -105,9 +105,9 @@ WSGI_APPLICATION = 'widmy.wsgi.application'
 DATABASES = {
       "default": {
          "ENGINE": "django.db.backends.postgresql_psycopg2",
-         "NAME": "widmy_db",
-         "USER": "widmy_user",
-         "PASSWORD": "widmyu2",
+         "NAME": "replica-db",
+         "USER": "replica-user",
+         "PASSWORD": "widmy2503",
          "HOST": "10.102.64.3",
          "PORT": "5432",
      }
