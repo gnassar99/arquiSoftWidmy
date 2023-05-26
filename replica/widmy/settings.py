@@ -183,3 +183,14 @@ AUTHENTICATION_BACKENDS = {
     'widmy.auth0backend.Auth0', 
     'django.contrib.auth.backends.ModelBackend', 
     }
+
+
+# CQRS settings
+CQRS = {
+    'transport': 'dj_cqrs.transport.RabbitMQTransport',
+    'host': '10.128.0.8',
+    'port': 5672,
+    'user': 'widmy-app',
+    'password': 'widmy2503',
+    'queue': 'monitoring_replica',  # settings used only in replica
+}
