@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'pacientes',
     'adendas',
     'social_django',
+    'dj_cqrs',
     #'widmy',
 ]
 
