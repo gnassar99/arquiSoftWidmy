@@ -1,0 +1,35 @@
+_format_version: "2.1"
+
+services:
+  - host: replica_upstream
+    name: replica_service
+    protocol: http
+    routes:
+      
+      - name: replica
+        paths:
+          - /historias
+          - /pacientes
+          - /adendas
+        strip_path: false
+  - host: master_upstream
+    name: master_service
+    protocol: http
+    routes:
+      
+      - name: master
+        paths:
+          - /historiacreate
+          - /adendascreate
+        strip_path: false
+    
+upstreams:
+  - name: replica_upstream
+    targets:
+      - target: 10.128.0.10:8080
+        weight: 100
+
+  - name: master_upstream
+    targets:
+      - target: 10.128.0.9:8080
+        weight: 100
