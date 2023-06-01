@@ -1,8 +1,9 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.core import serializers
 import json
+from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 
 from .forms import PacienteForm
@@ -63,19 +64,25 @@ def paciente_view(request, pk):
             return HttpResponse("Unauthorized User")
 
 def paciente_create(request):
+    role = getRole(request)
     if request.method == 'POST':
-        form = PacienteForm(request.POST)
-        if form.is_valid():
-            paciente = form.save()
-            messages.success(request, 'Paciente creado con éxito')
-            return redirect('paciente_detail', pk=paciente.pk)  # Redirect to the patient's detail page
+        if role == "Gerente":
+            form = PacienteForm(request.POST)
+            if form.is_valid():
+                pl.create_paciente(form)
+                messages.add_message(request, messages.SUCCESS, 'Paciente creado con exito')
+                return HttpResponseRedirect(reverse('pacienteCreate'))
+            else:
+                print(form.errors)
+        else:
+            return HttpResponse("Unauthorized User")
     else:
         form = PacienteForm()
-
+    
     context = {
         'form': form,
     }
-
+        
     return render(request, 'paciente/pacienteCreate.html', context)
 
 @login_required
