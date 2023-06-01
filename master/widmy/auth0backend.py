@@ -39,16 +39,21 @@ class Auth0(BaseOAuth2):
 
 def getRole(request):
     user = request.user
+    print("requested user: ", user)
     try:
         auth0_user = UserSocialAuth.objects.get(user=user, provider='auth0')
+        print("auth0_user: ", auth0_user)
         access_token = auth0_user.extra_data['access_token']
+        print("access_token: ", access_token)
         url = "https://widmy-g3.us.auth0.com/userinfo"  # Replace 'your-auth0-domain' with your actual Auth0 domain
         headers = {'authorization': 'Bearer ' + access_token, 
                     'content-type': 'application/json'}
         resp = requests.get(url, headers=headers)
-        print("resp: ", resp.content)
+        print("resp: ", resp.content)        
         userinfo = resp.json()
+        print("userinfo: ", userinfo)
         role = userinfo.get('widmy-g3.com/role')  # Replace 'widmy-g3.com/role' with the actual role claim name
+        print("role: ", role)
 
         return role
     except UserSocialAuth.DoesNotExist:
