@@ -103,7 +103,7 @@ WSGI_APPLICATION = 'widmy.wsgi.application'
 #     }
 # }
 
-DATABASES = {
+"""DATABASES = {
       "default": {
          "ENGINE": "django.db.backends.postgresql_psycopg2",
          "NAME": "replica-db",
@@ -112,7 +112,7 @@ DATABASES = {
          "HOST": "10.102.64.3",
          "PORT": "5432",
      }
- }
+ }"""
 
 
 
@@ -195,3 +195,6 @@ CQRS = {
     'password': 'widmy2503',
     'queue': 'monitoring_replica',  # settings used only in replica
 }
+
+#Mongo settings
+MONGO_CLI = os.environ['MONGO_CLIENT']
