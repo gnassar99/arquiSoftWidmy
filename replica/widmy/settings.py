@@ -195,3 +195,6 @@ CQRS = {
     'password': 'widmy2503',
     'queue': 'monitoring_replica',  # settings used only in replica
 }
+#Mongo settings
+MONGO_CLI = os.environ['MONGO_CLIENT']
+

@@ -1,12 +1,9 @@
-from django.contrib import messages
-from django.shortcuts import redirect, render
-from django.http import HttpResponse, HttpResponseRedirect
-from django.core import serializers
-import json
-from django.urls import reverse
-from django.views.decorators.csrf import csrf_exempt
-
-from .forms import PacienteForm
+from django.http import JsonResponse
+from pymongo import MongoClient
+from rest_framework.decorators import api_view, renderer_classes
+from rest_framework.parsers import JSONParser
+from django.conf import settings
+from bson.objectid import ObjectId
 from .logic import pacientes_logic as pl
 from django.http import HttpResponse
 from django.core import serializers
@@ -19,26 +16,35 @@ from widmy.auth0backend import getRole
 @csrf_exempt
 @login_required
 def pacientes_view(request):
+    client = MongoClient(settings.MONGO_CLI)
+    db = client.monitoring_db
     role = getRole(request)
+    pacientes = db['pacientes']
     if request.method == 'GET':
         if role == "Gerente":
-            id = request.GET.get("id", None)
-            if id:
-                paciente_dto = pl.get_paciente(id)
-                paciente = serializers.serialize('json', [paciente_dto,])
-                return HttpResponse(paciente, 'application/json')
-            else:
-                pacientes_dto = pl.get_pacientes()
-                pacientes = serializers.serialize('json', pacientes_dto)
-                return HttpResponse(pacientes, 'application/json')
+            result = []
+            data = pacientes.find({})
+            for dto in data:
+                jsonData = {
+                    'id': str(dto['_id']),
+                    "paciente": dto['paciente'],
+                }
+                result.append(jsonData)
+            client.close()
+            return JsonResponse(result, safe=False)
         else:
             return HttpResponse("Unauthorized User")
 
     if request.method == 'POST':
         if role == "Gerente":
-            paciente_dto = pl.create_paciente(json.loads(request.body))
-            paciente = serializers.serialize('json', [paciente_dto,])
-            return HttpResponse(paciente, 'application/json')
+            data = JSONParser().parse(request)
+            result = pacientes.insert(data)
+            respo ={
+                "MongoObjectID": str(result),
+                "Message": "nuevo objeto en la base de datos"
+            }
+            client.close()
+            return JsonResponse(respo, safe=False)
         else:
             return HttpResponse("Unauthorized User")
 
@@ -46,53 +52,36 @@ def pacientes_view(request):
 @login_required
 @csrf_exempt
 def paciente_view(request, pk):
+    client = MongoClient(settings.MONGO_CLI)
+    db = client.monitoring_db
+    pacientes = db['pacientes']
     role = getRole(request)
     if request.method == 'GET':
         if role == "Paciente":
-            paciente_dto = pl.get_paciente(pk)
-            paciente = serializers.serialize('json', [paciente_dto,])
-            return HttpResponse(paciente, 'application/json')
+            data = pacientes.find({'_id': ObjectId(pk)})
+            result = []
+            for dto in data:
+                jsonData ={
+                    'id': str(dto['_id']),
+                    "paciente": dto['paciente']
+                }
+                result.append(jsonData)
+            client.close()
+            return JsonResponse(result[0], safe=False)
         else:
             return HttpResponse("Unauthorized User")
 
     if request.method == 'PUT':
         if role == "Gerente":
-            paciente_dto = pl.update_paciente(pk, json.loads(request.body))
-            paciente = serializers.serialize('json', [paciente_dto,])
-            return HttpResponse(paciente, 'application/json')
+            data = JSONParser().parse(request)
+            result = pacientes.update(
+                {'_id': ObjectId(pk)},
+                {'$push': {'threshold': data}}
+            )
+            respo ={
+                "MongoObjectID": str(result),
+                "Message": "nuevo objeto en la base de datos"
+            }
+            return JsonResponse(respo, safe=False)
         else:
             return HttpResponse("Unauthorized User")
-
-def paciente_create(request):
-    role = getRole(request)
-    if request.method == 'POST':
-        if role == "Gerente":
-            form = PacienteForm(request.POST)
-            if form.is_valid():
-                pl.create_paciente(form)
-                messages.add_message(request, messages.SUCCESS, 'Paciente creado con exito')
-                return HttpResponseRedirect(reverse('pacienteCreate'))
-            else:
-                print(form.errors)
-        else:
-            return HttpResponse("Unauthorized User")
-    else:
-        form = PacienteForm()
-    
-    context = {
-        'form': form,
-    }
-        
-    return render(request, 'paciente/pacienteCreate.html', context)
-
-@login_required
-def paciente_list(request):
-    role = getRole(request)
-    if role == "Gerente" or role == "Paciente":
-        pacientes = pl.get_pacientes()
-        context = {
-            'paciente_list': pacientes
-        }
-        return render(request, 'paciente/pacientes.html', context)
-    else:
-        return HttpResponse("Unauthorized User")
