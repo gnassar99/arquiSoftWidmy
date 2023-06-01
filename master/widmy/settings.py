@@ -165,7 +165,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = "/login/auth0"
 LOGIN_REDIRECT_URL = "/"
-LOGOUT_REDIRECT_URL = "https://widmy-g3.us.auth0.com/v2/logout?returnTo=http%3A%2F%2F34.31.107.182:8080"
+LOGOUT_REDIRECT_URL = "https://widmy-g3.us.auth0.com/v2/logout?returnTo=http%3A%2F%2F34.67.92.188:8080"
 
 
 
