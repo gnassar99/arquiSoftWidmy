@@ -1,6 +1,5 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render
-from .logic import historiasClinicas_logic as hc
 from django.http import HttpResponse
 from django.core import serializers
 import json
