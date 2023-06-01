@@ -76,7 +76,7 @@ def paciente_create(request):
         'form': form,
     }
 
-    return render(request, 'pacientes/paciente_create.html', context)
+    return render(request, 'paciente/paciente_create.html', context)
 
 @login_required
 def paciente_list(request):
@@ -86,6 +86,6 @@ def paciente_list(request):
         context = {
             'paciente_list': pacientes
         }
-        return render(request, 'pacientes/pacientes.html', context)
+        return render(request, 'paciente/pacientes.html', context)
     else:
         return HttpResponse("Unauthorized User")
