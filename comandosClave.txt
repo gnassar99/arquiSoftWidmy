@@ -6,6 +6,26 @@ sudo apt update
 sudo git clone https://github.com/gnassar99/arquiSoftWidmy.git
 cd arquiSoftWidmy
 sudo git checkout CQRS2
+cd master
+sudo apt install python3-pip -y
+sudo su
+pip3 install --upgrade pip
+pip3 install -r requirements.txt
+pip3 install django-cqrs
+
+python3 manage.py makemigrations 
+python3 manage.py migrate 
+
+exit 
+cd ~
+cd .. 
+ls
+
+-----------------------------------------
+sudo apt update 
+sudo git clone https://github.com/gnassar99/arquiSoftWidmy.git
+cd arquiSoftWidmy
+sudo git checkout CQRS2
 cd replica
 sudo apt install python3-pip -y
 sudo su
