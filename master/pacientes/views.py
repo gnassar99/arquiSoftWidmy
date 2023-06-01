@@ -1,3 +1,12 @@
+from django.contrib import messages
+from django.shortcuts import redirect, render
+from .logic import historiasClinicas_logic as hc
+from django.http import HttpResponse
+from django.core import serializers
+import json
+from django.views.decorators.csrf import csrf_exempt
+
+from .forms import PacienteForm
 from .logic import pacientes_logic as pl
 from django.http import HttpResponse
 from django.core import serializers
@@ -53,3 +62,31 @@ def paciente_view(request, pk):
             return HttpResponse(paciente, 'application/json')
         else:
             return HttpResponse("Unauthorized User")
+
+def paciente_create(request):
+    if request.method == 'POST':
+        form = PacienteForm(request.POST)
+        if form.is_valid():
+            paciente = form.save()
+            messages.success(request, 'Paciente creado con éxito')
+            return redirect('paciente_detail', pk=paciente.pk)  # Redirect to the patient's detail page
+    else:
+        form = PacienteForm()
+
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'pacientes/paciente_create.html', context)
+
+@login_required
+def paciente_list(request):
+    role = getRole(request)
+    if role == "Gerente" or role == "Paciente":
+        pacientes = pl.get_pacientes()
+        context = {
+            'paciente_list': pacientes
+        }
+        return render(request, 'pacientes/pacientes.html', context)
+    else:
+        return HttpResponse("Unauthorized User")
