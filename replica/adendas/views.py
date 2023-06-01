@@ -1,12 +1,11 @@
 from django.shortcuts import render
 from .forms import AdendaForm
 from django.contrib import messages
-from django.http import HttpResponse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from .logic.adendas_logic import create_adenda, get_adendas
 from django.contrib.auth.decorators import login_required
-from widmy.auth0backend import getRole
+from your_module.auth0_backend import getRole
 
 
 @login_required
@@ -21,6 +20,7 @@ def adenda_list(request):
     else:
         return HttpResponse("Unauthorized User")
 
+
 @login_required
 def adenda_create(request):
     role = getRole(request)
@@ -29,7 +29,7 @@ def adenda_create(request):
             form = AdendaForm(request.POST)
             if form.is_valid():
                 create_adenda(form)
-                messages.add_message(request, messages.SUCCESS, 'adenda creada exitosamente')
+                messages.add_message(request, messages.SUCCESS, 'Adenda created successfully')
                 return HttpResponseRedirect(reverse('adendaCreate'))
             else:
                 print(form.errors)
@@ -43,5 +43,3 @@ def adenda_create(request):
         return render(request, 'adenda/adendaCreate.html', context)
     else:
         return HttpResponse("Unauthorized User")
-    
-# Create your views here.

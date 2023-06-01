@@ -1,5 +1,4 @@
 from django.shortcuts import render
-
 from .logic import historiasClinicas_logic as hc
 from django.http import HttpResponse
 from django.core import serializers
@@ -12,28 +11,6 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from widmy.auth0backend import getRole
-
-# Create your views here.
-"""@csrf_exempt
-def historiasClinicas_view(request):
-    if request.method == 'GET':
-        id = request.GET.get("id", None)
-        if id:
-            historiasClinica_dto = hc.get_historiaClinica(id)
-            historiasClinica = serializers.serialize('json', [historiasClinica_dto,],fields=('enfermedades', 'tratamientos'))
-            historiasClinica = json.dumps(json.loads(serializers.serialize('json', historiasClinica_dto)), indent=4)
-            return render(request, 'Historia/historias.html', historiasClinica)
-        else:
-            historiasClinicas_dto = hc.get_historiasClinicas()
-            historiasClinicas = serializers.serialize('json', historiasClinicas_dto,fields=('enfermedades', 'tratamientos'))
-            historiasClinicas = json.dumps(json.loads(serializers.serialize('json', historiasClinicas_dto)), indent=4)
-            return render(request, 'Historia/historias.html', historiasClinicas)
-
-    if request.method == 'POST':
-        historiasClinica_dto = hc.create_historiaClinica(json.loads(request.body))
-        historiasClinica = serializers.serialize('json', [historiasClinica_dto,],fields=('enfermedades', 'tratamientos'))
-        historiasClinica = json.dumps(json.loads(serializers.serialize('json', [historiasClinica_dto,])), indent=4)
-        return render(request, 'Historia/historiasCreate.html', historiasClinica)"""
 
 @csrf_exempt
 @login_required
@@ -87,4 +64,3 @@ def historia_create(request):
     }
 
     return render(request, 'historia/historiaCreate.html', context)
-

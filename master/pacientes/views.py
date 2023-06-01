@@ -33,6 +33,7 @@ def pacientes_view(request):
         else:
             return HttpResponse("Unauthorized User")
 
+
 @login_required
 @csrf_exempt
 def paciente_view(request, pk):
@@ -44,7 +45,7 @@ def paciente_view(request, pk):
             return HttpResponse(paciente, 'application/json')
         else:
             return HttpResponse("Unauthorized User")
-        
+
     if request.method == 'PUT':
         if role == "Gerente":
             paciente_dto = pl.update_paciente(pk, json.loads(request.body))
