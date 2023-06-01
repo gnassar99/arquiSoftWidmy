@@ -52,7 +52,15 @@ def getRole(request):
         print("resp: ", resp.content)        
         userinfo = resp.json()
         print("userinfo: ", userinfo)
-        role = userinfo.get('widmy-g3.com/role')  # Replace 'widmy-g3.com/role' with the actual role claim name
+        if userinfo["nickname"] == "medico":
+            role = "Medico"
+        elif userinfo["nickname"] == "paciente":
+            role = "Paciente"
+        elif userinfo["nickname"] == "gerente":
+            role = "Gerente"
+        elif userinfo["nickname"] == "enfermero":
+            role = "Enfermero"
+        # role = userinfo.get('widmy-g3.com/role')  # Replace 'widmy-g3.com/role' with the actual role claim name
         print("role: ", role)
 
         return role
