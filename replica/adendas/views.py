@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from .logic.adendas_logic import create_adenda, get_adendas
 from django.contrib.auth.decorators import login_required
-from your_module.auth0_backend import getRole
+from widmy import getRole
 
 
 @login_required
