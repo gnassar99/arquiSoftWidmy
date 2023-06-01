@@ -42,7 +42,7 @@ def getRole(request):
     try:
         auth0_user = UserSocialAuth.objects.get(user=user, provider='auth0')
         access_token = auth0_user.extra_data['access_token']
-        url = "https://widmy-g3.auth0.com/userinfo"  # Replace 'your-auth0-domain' with your actual Auth0 domain
+        url = "https://widmy-g3.us.auth0.com/userinfo"  # Replace 'your-auth0-domain' with your actual Auth0 domain
         headers = {'authorization': 'Bearer ' + access_token, 
                     'content-type': 'application/json'}
         resp = requests.get(url, headers=headers)
