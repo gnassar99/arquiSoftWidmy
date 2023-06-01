@@ -11,6 +11,11 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from widmy.auth0backend import getRole
+from .forms import PacienteForm
+from django.contrib import messages
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
+from django.shortcuts import render
 
 
 @csrf_exempt
@@ -85,3 +90,44 @@ def paciente_view(request, pk):
             return JsonResponse(respo, safe=False)
         else:
             return HttpResponse("Unauthorized User")
+
+def paciente_create(request):
+    client = MongoClient(settings.MONGO_CLI)
+    db = client.monitoring_db
+    pacientes = db['pacientes']
+    role = getRole(request)
+    if request.method == 'POST':
+        if role == "Gerente":
+            form = PacienteForm(request.POST)
+            if form.is_valid():
+                data=form.cleaned_data
+                pacientes.insert(data)
+                messages.add_message(request, messages.SUCCESS, 'Paciente creado con exito')
+                return HttpResponseRedirect(reverse('pacienteCreate'))
+            else:
+                print(form.errors)
+        else:
+            return HttpResponse("Unauthorized User")
+    else:
+        form = PacienteForm()
+    
+    context = {
+        'form': form,
+    }
+        
+    return render(request, 'paciente/pacienteCreate.html', context)
+
+@login_required
+def paciente_list(request):
+    client = MongoClient(settings.MONGO_CLI)
+    db = client.monitoring_db
+    pacientes = db['pacientes']
+    role = getRole(request)
+    if role == "Gerente" or role == "Paciente":
+        data = pacientes.find({})
+        context = {
+            'paciente_list': data
+        }
+        return render(request, 'paciente/pacientes.html', context)
+    else:
+        return HttpResponse("Unauthorized User")
