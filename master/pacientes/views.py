@@ -76,7 +76,7 @@ def paciente_create(request):
         'form': form,
     }
 
-    return render(request, 'paciente/paciente_create.html', context)
+    return render(request, 'paciente/pacienteCreate.html', context)
 
 @login_required
 def paciente_list(request):
