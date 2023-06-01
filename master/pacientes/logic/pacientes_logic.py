@@ -14,6 +14,7 @@ def update_paciente(var_pk, new_var):
     paciente.save()
     return paciente
 
-def create_paciente(var):
-    paciente = paciente(name=var["name"])
+def create_paciente(form):
+    paciente = form.save()
     paciente.save()
+    return paciente
