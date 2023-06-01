@@ -11,7 +11,7 @@ from widmy.auth0backend import getRole
 @login_required
 def adenda_list(request):
     role = getRole(request)
-    if role == "Medico":
+    if role == "Medico" or role == "Enfermero":
         adendas = get_adendas()
         context = {
             'adenda_list': adendas
